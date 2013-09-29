@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app='HERSLogin'>
+<head>
+	<script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
+    	<script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+	<script src="login.js"> </script>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="login.css">
+
+</head>
+
+<body class="body">
+<div ng-controller="mainCtrl">
+	<form ng-hide = "bSignup">
+		<div>
+			<span><strong>Name : </strong></span><input type="text" ng-model="name" placeholder="Your name..." required>
+		</div>
+		<div>
+			<span><strong>Password : </strong></span><input type="password" ng-model="password" placeholder="Your password..." required>
+		</div>
+			<button ng-click="login(name,password)">Login</button>
+			</br>
+			<label id="msg">{{response}}</label>
+		<a id="show-signup" ng-click="showSignup()">Don't have account? Sign up!</a>
+	</form>
+	<form ng-show = "bSignup">
+		<h3>Fill these fields and sign up!</h3>
+		<div>
+			<span><strong>Name : </strong></span><input type="text" ng-model="name_signup" placeholder="Your name..." ng-change="check(name_signup)" required ng-minlength=4><label id="msgcheck"></label>
+		</div>
+		<div>
+			<span><strong>Password : </strong></span><input type="password" ng-model="password_signup" placeholder="Your password..." required ng-minlength=8 ng-change="checkPasswords1(password_signup,confirm_password_signup)">   <span>Minimum 8 letters</span>
+		</div>
+				<div>
+			<span><strong>Confirm Password : </strong></span><input type="password" ng-model="confirm_password_signup" placeholder="Confirm your password..." ng-change="checkPasswords(password_signup,confirm_password_signup)">    <i class="icon-large icon-ok" ng-show="checkPass"></i><i class="icon-large icon-remove" ng-show="!checkPass && confirm_password_signup"></i>  {{checkMsg}}
+		</div>
+		<div>
+			<span><strong>Email : </strong></span><input type="email" ng-model="email_signup" placeholder="Your email..." required>
+		</div>
+			<button ng-click="signup(name_signup,password_signup,confirm_password_signup,email_signup)">Sign up</button>
+			</br>
+			<label id="msgsignup"></label>
+		<a id="hide-signup" ng-click="hideSignup()">I want to Login</a>
+	</form>
+
+</div>
+</body>
+</html>

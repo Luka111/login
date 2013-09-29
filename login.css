@@ -1,0 +1,11 @@
+.body{
+	padding:20px;
+}
+
+#show-signup{
+	cursor:pointer;
+}
+
+#hide-signup{
+	cursor:pointer;
+}
