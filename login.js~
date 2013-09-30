@@ -11,7 +11,7 @@ angular.module('HERSLogin',['ngAnimate']).
   });
 
 //FUNCTIONS - LATER TO FACTORY
-var ajaxFunctionELogin = function(email,password){
+var ajaxFunctionELogin = function(name,password,email){
 	jQuery.ajax({
 		type: 'GET',
 		data: {email:email , password:password},

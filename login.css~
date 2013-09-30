@@ -9,7 +9,3 @@
 #hide-signup{
 	cursor:pointer;
 }
-
-.typeLogin{
-	cursor:pointer;
-}

@@ -25,7 +25,7 @@
 		<div>
 			<span><strong>Password : </strong></span><input type="password" ng-model="password" placeholder="Your password..." required>
 		</div>
-			<button ng-click="login(name,email,password)">Login</button>
+			<button ng-click="login(name,password)">Login</button>
 			</br>
 			<label id="msg">{{response}}</label>
 		<a id="show-signup" ng-click="showSignup()">Don't have account? Sign up!</a>
