@@ -62,6 +62,23 @@ var ajaxFunctionCheck = function(name){
 	});
 }
 
+var ajaxFunctionCheckEmail = function(email){
+	jQuery.ajax({
+		type: 'GET',
+		data: {email:email},
+		dataType: 'json',
+		url: 'http://localhost:8081/check_email' ,
+		success: function (data) {
+   			 var ret = data;
+    			$('#msgcheckemail').html(ret.msg);
+		},
+		error: function (xhr, status, error) {
+    			 console.log('Error: ' + error.message);
+   			 $('#msgcheckemail').html('Error connecting to the server');
+		}
+	});
+}
+
 /*
 */
 
@@ -71,14 +88,16 @@ function mainCtrl($scope,login){
   $scope.response = '';
 
 	$scope.login = function(name,email,password){
-		if($scope.nLogin){
-			login(name,password,function success(data){
-			      $scope.response = data.msg;
-			    },function error(err){
-			      console.log('error',err);
-			    });
-		}else{
-			ajaxFunctionELogin(email,password);
+		if ((name && password) || (email && password)){
+			if($scope.nLogin){
+				login(name,password,function success(data){
+				      $scope.response = data.msg;
+				    },function error(err){
+				      console.log('error',err);
+				    });
+			}else{
+				ajaxFunctionELogin(email,password);
+			}
 		}
 	};
 
@@ -96,10 +115,12 @@ function mainCtrl($scope,login){
 	}
 
 	$scope.signup = function(name,password,confirm_password,email){
-		if(password.length > 7){
-			if(password === confirm_password) ajaxFunctionSignup(name,password,email);
-		}else{
-			$scope.signupMsg = 'Your password must have at least 8 letters!';
+		if(password){
+			if(password.length > 7){
+				if(password === confirm_password) ajaxFunctionSignup(name,password,email);
+			}else{
+				$scope.signupMsg = 'Your password must have at least 8 letters!';
+			}
 		}
 	};
 
@@ -126,6 +147,12 @@ function mainCtrl($scope,login){
 
 	$scope.check = function(name){
 		ajaxFunctionCheck(name);
+	};
+
+	$scope.checkEmail = function(email){
+		if(email){
+			ajaxFunctionCheckEmail(email);
+		}
 	};
 
 	$scope.bSignup = false;

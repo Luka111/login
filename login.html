@@ -15,7 +15,7 @@
 <div ng-controller="mainCtrl">
 	<form ng-hide = "bSignup">
 		<div ng-show="nLogin">
-			<span><strong>Name : </strong></span><input type="text" ng-model="name" placeholder="Your name..." ngRequired = "nLogin">
+			<span><strong>Name : </strong></span><input type="text" ng-model="name" placeholder="Your name..." ngRequired = "nLogin" required>
 		</div>
 		<div ng-show="eLogin">
 			<span><strong>Email : </strong></span><input type="email" ng-model="email" placeholder="Your email..." ngRequired = "eLogin">
@@ -42,8 +42,9 @@
 			<span><strong>Confirm Password : </strong></span><input type="password" ng-model="confirm_password_signup" placeholder="Confirm your password..." ng-change="checkPasswords(password_signup,confirm_password_signup)">    <i class="icon-large icon-ok" ng-show="checkPass"></i><i class="icon-large icon-remove" ng-show="!checkPass && confirm_password_signup"></i>  {{checkMsg}}
 		</div>
 		<div>
-			<span><strong>Email : </strong></span><input type="email" ng-model="email_signup" placeholder="Your email..." required>
+			<span><strong>Email : </strong></span><input type="email" ng-model="email_signup" placeholder="Your email..." ng-change="checkEmail(email_signup)" required>
 		</div>
+		<label id="msgcheckemail"></label>
 			<button ng-click="signup(name_signup,password_signup,confirm_password_signup,email_signup)">Sign up</button>
 			</br>
 			<label id="msgsignup">{{signupMsg}}</label>

@@ -41,6 +41,40 @@ var check = function(req,res,next){
   }
 };
 
+//CHECK-EMAIL
+var check_email = function(req,res,next){
+  var slashes = req._parsedUrl.pathname.split('/');
+  if(!slashes[0]){
+    slashes.splice(0,1);
+  }
+  if(slashes[0]==='check_email'){
+	console.log('[CHECK_EMAIL] Request recived' + ' from ' + req.url);
+	var lo = req.query;
+	console.log('Object recivied ',lo);
+	db.collection("user-collection",function(error,collection){
+		console.log('Checking if ' + lo.email + ' exists in user-collection');
+		collection.find({email:lo.email}, function(error,cursor){
+			if(error){
+				console.log('Error :' +error);
+			}else{
+				cursor.toArray(function(error,niz){
+					if(niz.length){
+						console.log(lo.email + ' exists in user-collection');
+						console.log(JSON.stringify(niz));
+						res.end(JSON.stringify({msg:'Email exists'}));
+					}else{
+						console.log(lo.email + ' does not exists in user-collection');
+						res.end(JSON.stringify({msg:'Email does not exist'}));
+					}
+				});
+			}
+		});
+	});
+  }else{
+    next();
+  }
+};
+
 //LOGIN
 var log_in = function(req,res,next){
   var slashes = req._parsedUrl.pathname.split('/');
@@ -171,6 +205,7 @@ db.open(function(error){
 var login = connect().
   use(connect.query()).
   use(check).
+  use(check_email).
   use(log_in).
   use(elogin).
   use(signup).
